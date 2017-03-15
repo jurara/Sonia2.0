@@ -49,7 +49,7 @@ public class AFN extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         MiTabla = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
+        btnTabla = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,10 +119,11 @@ public class AFN extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(MiTabla);
 
-        jButton3.setText("Generar Tabla");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnTabla.setText("Generar Tabla");
+        btnTabla.setEnabled(false);
+        btnTabla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnTablaActionPerformed(evt);
             }
         });
 
@@ -152,14 +153,14 @@ public class AFN extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel6)
                                 .addGap(27, 27, 27)
-                                .addComponent(jButton3))
+                                .addComponent(btnTabla))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtS, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(225, 225, 225)
                         .addComponent(jLabel8))
@@ -175,7 +176,7 @@ public class AFN extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(txtCadena, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(307, Short.MAX_VALUE))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,14 +202,14 @@ public class AFN extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(txtABC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jButton3))
+                    .addComponent(btnTabla))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 255, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCadena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addGap(31, 31, 31)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -289,7 +290,7 @@ public class AFN extends javax.swing.JFrame {
     }
     
     public boolean validarABC(){
-       int c=0;
+       int c=0,ca=0;
        String temp="",temp2;
        ABC=txtABC.getText().split(",");
        for(int j=0;j<ABC.length;j++){  
@@ -308,14 +309,33 @@ public class AFN extends javax.swing.JFrame {
        showMessageDialog(null,"Tiene repetidos en su Abecedario a: "+temp2);
        return false;
        }
+       for(int i=0;i<ABC.length;i++){
+           if(ABC[i].length()!=1){
+               showMessageDialog(null,ABC[i]+" no es valido por favor solo ingrese una letra");
+               
+           }
+           
+       }
+       if(ca!=0){
+           return false;
+       }
        return true; 
     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        qs();
-        vals();
-        valfin();
-        validarABC();
+       if(
+       qs()==true &&
+       vals()==true &&
+       valfin()==true &&
+       validarABC()==true){
+       showMessageDialog(null,"los campos son validos");
+       btnTabla.setEnabled(true);
+       }
+       else{
+       btnTabla.setEnabled(false);        
+       }
+           
+       
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtQKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQKeyReleased
@@ -346,14 +366,24 @@ public class AFN extends javax.swing.JFrame {
         txtF.setText("");
         txtQ.setText("");
         txtS.setText("");
+        DefaultTableModel modelo = new DefaultTableModel();
+        MiTabla.setModel(modelo);
+        btnTabla.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaActionPerformed
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn(q);
-        JTable MiTabla = new JTable (modelo);
-      
-    }//GEN-LAST:event_jButton3ActionPerformed
+        modelo.addColumn("Q\\Σ");
+        for(int i=0;i<ABC.length;i++){
+        modelo.addColumn(ABC[i]);
+        }
+        for(int i=0;i<q.length;i++){
+        String temp[]=new String[1];
+        temp[0]=q[i];
+        modelo.addRow(temp);
+        }
+        MiTabla.setModel(modelo);
+    }//GEN-LAST:event_btnTablaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -392,9 +422,9 @@ public class AFN extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable MiTabla;
+    private javax.swing.JButton btnTabla;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
