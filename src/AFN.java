@@ -84,6 +84,12 @@ public class AFN extends javax.swing.JFrame {
 
         jLabel5.setText("F={");
 
+        txtABC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtABCKeyPressed(evt);
+            }
+        });
+
         jLabel6.setText("}");
 
         jLabel7.setText(" Abecedario={");
@@ -245,14 +251,22 @@ public class AFN extends javax.swing.JFrame {
     }
     
     public boolean vals(){
+        if(txtS.getText().equals("")){
+           return false;
+       }
         String cad=txtQ.getText();
         s=txtS.getText().split(",");
+        int c=0;
         if(s.length!=1){
             showMessageDialog(null,"solo se puede tener un inicio");
             return false;
         }
-          
-        if(cad.indexOf(""+s[0])==-1){
+        for(int i=0;i<q.length;i++){
+            if(s[0].equals(q[i])){
+                c++;
+            }
+        }  
+        if(c==0){
            showMessageDialog(null,s[0]+" no esta en Q");
            return false;
        }
@@ -260,7 +274,10 @@ public class AFN extends javax.swing.JFrame {
     }
     
     public boolean valfin(){
-       int c=0,c2=0;
+       if(txtF.getText().equals("")){
+           return false;
+       }
+        int c=0,c2=0;
        String temp="",temp2="",cad="";
        f=txtF.getText().split(",");
        for(int j=0;j<f.length;j++){  
@@ -290,6 +307,9 @@ public class AFN extends javax.swing.JFrame {
     }
     
     public boolean validarABC(){
+       if(txtABC.getText().equals("")){
+           return false;
+       }
        int c=0,ca=0;
        String temp="",temp2;
        ABC=txtABC.getText().split(",");
@@ -312,7 +332,7 @@ public class AFN extends javax.swing.JFrame {
        for(int i=0;i<ABC.length;i++){
            if(ABC[i].length()!=1){
                showMessageDialog(null,ABC[i]+" no es valido por favor solo ingrese una letra");
-               
+               ca++;
            }
            
        }
@@ -384,6 +404,12 @@ public class AFN extends javax.swing.JFrame {
         }
         MiTabla.setModel(modelo);
     }//GEN-LAST:event_btnTablaActionPerformed
+
+    private void txtABCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtABCKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+               jButton2ActionPerformed(null);
+           }
+    }//GEN-LAST:event_txtABCKeyPressed
 
     /**
      * @param args the command line arguments
