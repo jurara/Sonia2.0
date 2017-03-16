@@ -307,6 +307,7 @@ public class AFN extends javax.swing.JFrame {
        if(c2==q.length){
          cad+=f[j]+", ";  
        }
+       c2=0;
        }
        if(!cad.equals("")){
            showMessageDialog(null,"este fin no es valido: "+cad);
@@ -382,13 +383,16 @@ public class AFN extends javax.swing.JFrame {
 
     private void txtSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-               jButton2ActionPerformed(null);
+            
+            jButton2ActionPerformed(null);
            }
     }//GEN-LAST:event_txtSKeyPressed
 
     private void txtFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-               jButton2ActionPerformed(null);
+            
+            jButton2ActionPerformed(null);
+            
            }
     }//GEN-LAST:event_txtFKeyPressed
 
@@ -419,7 +423,7 @@ public class AFN extends javax.swing.JFrame {
 
     private void txtABCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtABCKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            validarABC();   
+               
             jButton2ActionPerformed(null);
            }
     }//GEN-LAST:event_txtABCKeyPressed
