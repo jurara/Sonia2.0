@@ -277,7 +277,8 @@ public class AFN extends javax.swing.JFrame {
        if(txtF.getText().equals("")){
            return false;
        }
-        int c=0,c2=0;
+        int c=0,c2=0; 
+        
        String temp="",temp2="",cad="";
        f=txtF.getText().split(",");
        for(int j=0;j<f.length;j++){  
@@ -297,11 +298,21 @@ public class AFN extends javax.swing.JFrame {
        return false;
        }
        
-       
+       for(int j=0;j<f.length;j++){  
+       for(int i=0;i<q.length;i++){
+           if(!f[j].equals(q[i])){
+               c2++;
+           }
+       }
+       if(c2==q.length){
+         cad+=f[j]+", ";  
+       }
+       }
        if(!cad.equals("")){
-           showMessageDialog(null,"No se encuentra en Q: "+cad);
+           showMessageDialog(null,"este fin no es valido: "+cad);
            return false;
        }
+       
        
        return true;
     }
@@ -333,6 +344,7 @@ public class AFN extends javax.swing.JFrame {
            if(ABC[i].length()!=1){
                showMessageDialog(null,ABC[i]+" no es valido por favor solo ingrese una letra");
                ca++;
+               
            }
            
        }
@@ -407,7 +419,8 @@ public class AFN extends javax.swing.JFrame {
 
     private void txtABCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtABCKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-               jButton2ActionPerformed(null);
+            validarABC();   
+            jButton2ActionPerformed(null);
            }
     }//GEN-LAST:event_txtABCKeyPressed
 
